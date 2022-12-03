@@ -1,2 +1,13 @@
+name: "CodeQL config"
+
+disable-default-queries: true
+
+packs:
+  go:
+    - codeql/go-queries
+
 queries:
-  - uses: ./rules/ssrf.ql
+  - name: Use custom SSRF query
+    uses: ./rules/ssrf.ql
+
+paths: main.go
