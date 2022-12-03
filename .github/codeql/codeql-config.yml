@@ -4,8 +4,6 @@ version: latest
 # Specify the language and directory containing the source code
 languages:
   - go
-    source_directories:
-      - .
 
 # Use the custom CodeQL pack and rule
 qlpacks:
