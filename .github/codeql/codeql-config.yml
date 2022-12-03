@@ -1,12 +1,7 @@
-# Use the latest version of CodeQL
-version: latest
+name: "My CodeQL config"
 
-# Specify the language and directory containing the source code
-languages:
-  - go
-  source_directories:
-    - .
+disable-default-queries: true
 
-# Run the custom CodeQL rule on the Go code
 queries:
-  - query: ./rules/
+  - name: Use in-repository queries
+    uses: ./rules/
