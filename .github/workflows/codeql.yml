@@ -1,0 +1,22 @@
+name: CodeQL
+
+on: [push, pull_request]
+
+jobs:
+  codeql:
+    runs-on: ubuntu-latest
+    steps:
+      # Check out the code
+      - uses: actions/checkout@v2
+
+      # Install the CodeQL CLI
+      - uses: github/codeql-action/setup@v1
+
+      # Install the Go language support for CodeQL
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends codeql-go-bundle
+
+      # Create a CodeQL database for the Go code
+      - run: codeql database create --language go --source-root . --output-directory codeql-database
+
+      # Run your custom CodeQL rules on the Go code
+      - run: codeql query run --format=csv ./rules/ssrf.ql --database codeql-database
