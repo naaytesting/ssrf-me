@@ -1,0 +1,2 @@
+queries:
+  - uses: ./rules/ssrf.ql

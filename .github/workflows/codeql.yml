@@ -3,20 +3,31 @@ name: CodeQL
 on: [push]
 
 jobs:
-  codeql:
+  analyze:
+    name: Analyze
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'go' ]
+
     steps:
-      # Check out the code
-      - uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-      # Install the CodeQL CLI
-      - uses: github/codeql-action/setup-codeql@v1
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: ${{ matrix.language }}
+        config-file: ./.github/codeql/codeql-config.yml
 
-      # Install the Go language support for CodeQL
-      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends codeql-go-bundle
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v2
 
-      # Create a CodeQL database for the Go code
-      - run: codeql database create --language go --source-root . --output-directory codeql-database
-
-      # Run your custom CodeQL rules on the Go code
-      - run: codeql query run --format=csv /path/to/custom-rules.qll --database codeql-database
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
