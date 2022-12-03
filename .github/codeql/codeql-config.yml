@@ -1,13 +1,12 @@
-name: "CodeQL config"
+# Use the latest version of CodeQL
+version: latest
 
-disable-default-queries: true
+# Specify the language and directory containing the source code
+languages:
+  - go
+  source_directories:
+    - .
 
-packs:
-  go:
-    - codeql/go-queries
-
+# Run the custom CodeQL rule on the Go code
 queries:
-  - name: Use custom SSRF query
-    uses: ./rules/ssrf.ql
-
-paths: main.go
+  - query: ./rules/ssrf.qll
