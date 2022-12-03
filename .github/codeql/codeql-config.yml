@@ -1,7 +1,3 @@
 name: "My CodeQL config"
 
 disable-default-queries: true
-
-queries:
-  - name: Use in-repository queries
-    uses: ./rules
