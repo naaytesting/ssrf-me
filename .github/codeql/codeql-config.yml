@@ -9,4 +9,4 @@ languages:
 
 # Run the custom CodeQL rule on the Go code
 queries:
-  - query: ./rules/ssrf.qll
+  - query: ./rules/
